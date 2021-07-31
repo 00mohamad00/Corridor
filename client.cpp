@@ -1,15 +1,14 @@
-#include "httplib.h"
 #include "iostream"
+#include "clientClass.h"
+#include "clientClass.h"
 
 using namespace std;
 
 int main(){
-    httplib::Headers headers = {
-            { "id", to_string(-1) }
-    };
-    httplib::Client cli("127.0.0.1", 8080);
-    auto res = cli.Get("/admin", headers);
+    clientClass c("127.0.0.1", 8080);
+    if (c.connect()){
+        c.run_game();
+    }
 
-    cout << res->status << endl;
-    cout << res->body << endl;
+    return 0;
 }

@@ -1,14 +1,17 @@
 #include "httplib.h"
 #include "iostream"
-#include "vector"
+#include "json.hpp"
 
 using namespace std;
+using namespace nlohmann;
 
 int main(){
     httplib::Server server;
-    server.Get("/admin", [](const httplib::Request &req, httplib::Response &res) {
-            auto id = req.get_header_value("id");
-            res.set_content(id, "text/plain");
+    server.Get("/new_client", [](const httplib::Request &req, httplib::Response &res) {
+            json j;
+            j["id"] = 1;
+            j["status"] = "ok"; // j["status"] = "no_new_client";
+            res.set_content(j.dump(), "application/json");
         }
     );
 
