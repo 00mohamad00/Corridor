@@ -25,7 +25,10 @@ class position_error: public error{
 class wrong_id_error: public error{
     using error::error;
 };
-class max_player: public error{
+class max_player_error: public error{
+    using error::error;
+};
+class server_status_error: public error{
     using error::error;
 };
 

@@ -11,7 +11,7 @@ int Pawn::static_id = 0;
 
 Pawn::Pawn(Board* _board) {
     if (static_id >= 4){
-        throw max_player("maximum player");
+        throw max_player_error("maximum player");
     }
     id = static_id;
     color = static_cast<Color>(static_id);

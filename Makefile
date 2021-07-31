@@ -4,7 +4,7 @@ DEPS = httplib.h json.hpp errors.h
 
 all: server client
 
-server: server.o
+server: server.o Game.o Board.o Pawn.o
 	$(CXX) $^ -o server $(CXXFLAGS)
 
 client: client.o clientClass.o Board.o Pawn.o

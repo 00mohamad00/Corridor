@@ -11,6 +11,7 @@ Game::Game(int n) {
     board = new Board(n);
     turn = 0;
     winner_id = -1;
+    status = STATUS_INITIALIZING;
 }
 
 Game::~Game() {
@@ -18,6 +19,22 @@ Game::~Game() {
     for (auto pawn:pawns){
         delete pawn;
     }
+}
+
+void Game::run_create_wall(int player_id, int x, int y, int dir) {
+    if (player_id!=turn){
+        return 0;
+    }
+    try {
+        create_wall(x, y, dir);
+        ret
+    }
+    catch (position_error& e){
+        cout << e.what() << endl;
+        cout << "try again" << endl;
+        retur 0n;
+    }
+
 }
 
 void Game::run() {
@@ -70,9 +87,15 @@ void Game::run() {
     cout << winner_id << " is the winner !!!" << endl;
 }
 
-void Game::add_new_player() {
+int Game::add_new_player() {
+    if (status != STATUS_INITIALIZING){
+        throw server_status_error("server isn't in initializing mode");
+    }
     Pawn* pawn = new Pawn(board);
     pawns.push_back(pawn);
+    if (pawns.size() == 4)
+        status = STATUS_PLAYING;
+    return pawn->get_id();
 }
 
 void Game::move(int id, int dir) {
@@ -124,3 +147,14 @@ void Game::create_wall(int x, int y, int dir) {
 //}
 
 
+int Game::get_turn() {
+    return turn;
+}
+
+json Game::get_map() {
+    return board->get_as_json();
+}
+
+int Game::get_status() {
+    return status;
+}

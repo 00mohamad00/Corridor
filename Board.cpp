@@ -5,6 +5,7 @@
 #include "Board.h"
 #include "iostream"
 
+
 Board::Board(int n) {
     map = std::vector<std::vector<Pawn*> >(n, std::vector<Pawn*>(n, nullptr));
     wall = new Pawn();
@@ -86,6 +87,23 @@ void Board::create_wall_left_right(int y, int left_x, int right_x) {
     for (int i = left_x; i <= right_x; ++i) {
         create_solo_wall(i ,y);
     }
+}
+
+json Board::get_as_json() {
+    json j_object;
+    int len = map.size();
+    for (int i = 0; i < len; ++i) {
+        j_object[std::to_string(i)] = json::object();
+        for (int j = 0; j < len; ++j) {
+            if (map[i][j] == nullptr)
+                j_object[std::to_string(i)][std::to_string(j)]=".";
+            else if (map[i][j]->get_id()==-1)
+                j_object[std::to_string(i)][std::to_string(j)]="#";
+            else
+                j_object[std::to_string(i)][std::to_string(j)]=std::to_string(map[i][j]->get_id());
+        }
+    }
+    return j_object;
 }
 
 
