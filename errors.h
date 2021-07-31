@@ -25,5 +25,8 @@ class position_error: public error{
 class wrong_id_error: public error{
     using error::error;
 };
+class max_player: public error{
+    using error::error;
+};
 
 #endif //CORRIDORIII_ERRORS_H

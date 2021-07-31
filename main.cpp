@@ -2,7 +2,7 @@
 #include "Game.h"
 
 int main() {
-    Game game;
+    Game game(11);
     game.add_new_player();
     game.add_new_player();
     game.add_new_player();

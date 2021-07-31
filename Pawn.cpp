@@ -4,14 +4,14 @@
 
 #include "Pawn.h"
 
-int initial_pos_x[4] = {0, 4, 8, 4};
-int initial_pos_y[4] = {4, 0, 4, 8};
+int initial_pos_x[4] = {0, 10, 10, 0};
+int initial_pos_y[4] = {0, 10, 0, 10};
 
 int Pawn::static_id = 0;
 
 Pawn::Pawn(Board* _board) {
     if (static_id >= 4){
-        throw ;
+        throw max_player("maximum player");
     }
     id = static_id;
     color = static_cast<Color>(static_id);
@@ -19,16 +19,18 @@ Pawn::Pawn(Board* _board) {
 
     x = init_x = initial_pos_x[id];
     y = init_y = initial_pos_y[id];
-    if (!(board->is_correct_pos(x, y) && board->is_available(x, y))){
-        // TODO: error
-    }
     set_pos(x, y);
 
     static_id++;
 }
 
+Pawn::Pawn() {
+    id = -1;
+}
+
 Pawn::~Pawn() {
     static_id--;
+    board->remove_pos(this);
 }
 
 int Pawn::get_id() {
@@ -54,9 +56,7 @@ void Pawn::move_by_dir(int dir) {
 }
 
 bool Pawn::is_game_finished() {
-    if (init_x==0 && x==8)
-        return true;
-    if (init_y==0 && y==8)
+    if (x==5 && y==5)
         return true;
     return false;
 }

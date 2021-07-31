@@ -13,15 +13,15 @@ using namespace std;
 
 class Game {
 public:
-    Game(int n = 9);
+    Game(int n = 11);
     ~Game();
 
     void run();
     void add_new_player();
 //    void remove_player(int id);
-//
+
     void move(int id, int dir);
-//    void create_wall();
+    void create_wall(int x, int y, int dir);
 private:
     Board* board;
     std::vector<Pawn*> pawns;

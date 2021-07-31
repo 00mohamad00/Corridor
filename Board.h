@@ -20,13 +20,16 @@ public:
 
     bool is_correct_pos(int x, int y);
     bool is_available(int x, int y);
-
+    bool is_accessible(int x, int y);
+    void create_solo_wall(int x, int y);
+    void create_wall_up_down(int x, int up_y, int down_y);
+    void create_wall_left_right(int y, int left_x, int right_x);
 private:
     void set_pos(Pawn *pawn, int x, int y);
     void remove_pos(Pawn* pawn);
-     std::vector<std::vector<Pawn*> >map;
-
-     friend class Pawn;
+    std::vector<std::vector<Pawn*> >map;
+    Pawn *wall;
+    friend class Pawn;
 };
 
 

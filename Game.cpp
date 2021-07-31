@@ -8,7 +8,7 @@
 #include "string"
 
 Game::Game(int n) {
-    board = new Board(9);
+    board = new Board(n);
     turn = 0;
     winner_id = -1;
 }
@@ -43,11 +43,6 @@ void Game::run() {
             try {
                 move(player_id, dir);
             }
-            catch (wrong_id_error& e){
-                cout << e.what() << endl;
-                cout << "try again" << endl;
-                continue;
-            }
             catch (position_error& e){
                 cout << e.what() << endl;
                 cout << "try again" << endl;
@@ -55,14 +50,23 @@ void Game::run() {
             }
 
         } else if (request=="create_wall"){
-            int x, y;
-            ss >> x >> y;
+            int x, y, dir;
+            ss >> x >> y >> dir;
+            try {
+                create_wall(x, y, dir);
+            }
+            catch (position_error& e){
+                cout << e.what() << endl;
+                cout << "try again" << endl;
+                continue;
+            }
         }
         else{
             continue;
         }
         next_turn();
     }
+    board->print();
     cout << winner_id << " is the winner !!!" << endl;
 }
 
@@ -98,5 +102,25 @@ void Game::next_turn() {
     turn += 1;
     turn %= pawns.size();
 }
+
+void Game::create_wall(int x, int y, int dir) {
+    if (dir==1){
+        board->create_wall_up_down(x, y-1, y+1);
+    } else{
+        board->create_wall_left_right(y, x-1, x+1);
+    }
+}
+
+//void Game::remove_player(int id) {
+//    Pawn* pawn;
+//    for (int i = 0; i < pawns.size(); ++i) {
+//        if (pawns[i]->get_id() == id){
+//            pawn = pawns[id];
+//
+//            break;
+//        }
+//    }
+//    delete pawn;
+//}
 
 
