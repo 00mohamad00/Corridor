@@ -28,8 +28,8 @@ Pawn::Pawn() {
     id = -1;
 }
 
-Pawn::Pawn(int id) {
-    id = id;
+Pawn::Pawn(int _id) {
+    id = _id;
 }
 
 Pawn::~Pawn() {

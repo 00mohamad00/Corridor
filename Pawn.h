@@ -20,7 +20,7 @@ class Board; // TODO: ???
 class Pawn {
 public:
     Pawn(Board* _board);
-    Pawn(int id);
+    Pawn(int _id);
     Pawn();
     ~Pawn();
 

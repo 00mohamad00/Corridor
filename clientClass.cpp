@@ -46,7 +46,6 @@ void clientClass::run_game() {
     }
     get_data();
     while (status != STATUS_FINISHED){
-        get_data();
         if (status==STATUS_INITIALIZING){
             system("clear");
             std::cout << "Number of connected clients: " << number_of_clients << std::endl;
@@ -56,6 +55,7 @@ void clientClass::run_game() {
         } else {
             if (turn!=pre_turn){
                 system("clear");
+                std::cout << id << std::endl;
                 print();
             }
             if (turn==id){
@@ -63,6 +63,7 @@ void clientClass::run_game() {
             }
         }
         usleep(200);
+        get_data();
     }
     if (winner_id==id)
         std::cout << "You won the game!!!" << std::endl;
@@ -132,6 +133,7 @@ void clientClass::create_wall(int x, int y, int dir) {
 }
 
 void clientClass::get_request_from_user() {
+    std::cout << "UP: 0, DOWN: 1, RIGHT: 2, LEFT: 3" << std::endl;
     std::cout << "Y:";
     std::string line;
     getline(std::cin, line);
@@ -146,7 +148,7 @@ void clientClass::get_request_from_user() {
         try {
             move(dir);
         }catch (position_error& e){
-            std::cout << e.what() << std::endl;
+            std::cout << "You can't go there" << std::endl;
         }
     }else if (request=="create_wall"){
         int x, y, dir;
@@ -154,7 +156,7 @@ void clientClass::get_request_from_user() {
         try {
             create_wall(x, y, dir);
         }catch (position_error& e){
-            std::cout << e.what() << std::endl;
+            std::cout << "You can't create wall there" << std::endl;
         }
     }else{
         std::cout << "try again" << std::endl;
