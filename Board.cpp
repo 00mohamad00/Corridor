@@ -3,8 +3,6 @@
 //
 
 #include "Board.h"
-#include "iostream"
-
 
 Board::Board(int n) {
     map = std::vector<std::vector<Pawn*> >(n, std::vector<Pawn*>(n, nullptr));
@@ -104,6 +102,20 @@ json Board::get_as_json() {
         }
     }
     return j_object;
+}
+
+void Board::set_by_json(json j_object, std::vector<Pawn*> pawns) {
+    int len = map.size();
+    for (int i = 0; i < len; ++i) {
+        for (int j = 0; j < len; ++j) {
+            if (j_object[std::to_string(i)][std::to_string(j)].get<std::string>() == ".")
+                map[i][j] = nullptr;
+            else if (j_object[std::to_string(i)][std::to_string(j)].get<std::string>() == "#")
+                map[i][j] = wall;
+            else
+                map[i][j] = pawns[std::stoi(j_object[std::to_string(i)][std::to_string(j)].get<std::string>())];
+        }
+    }
 }
 
 

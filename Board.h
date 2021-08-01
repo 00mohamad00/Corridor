@@ -9,6 +9,7 @@
 #include "Pawn.h"
 #include "errors.h"
 #include "json.hpp"
+#include "iostream"
 
 using namespace nlohmann;
 
@@ -28,6 +29,7 @@ public:
     void create_wall_up_down(int x, int up_y, int down_y);
     void create_wall_left_right(int y, int left_x, int right_x);
     json get_as_json();
+    void set_by_json(json j_object, std::vector<Pawn*> pawns);
 private:
     void set_pos(Pawn *pawn, int x, int y);
     void remove_pos(Pawn* pawn);

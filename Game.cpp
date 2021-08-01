@@ -155,3 +155,7 @@ int Game::get_winner() {
 void Game::start() {
     status = STATUS_PLAYING;
 }
+
+int Game::number_of_players() {
+    return pawns.size();
+}

@@ -32,6 +32,7 @@ public:
     int get_winner();
     json get_map();
     void check_finish();
+    int number_of_players();
 private:
     Board* board;
     std::vector<Pawn*> pawns;

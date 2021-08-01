@@ -46,14 +46,16 @@ int main(){
     server.Get("/game_status", [&](const httplib::Request &req, httplib::Response &res) {
             json j;
             log("GET", "status");
+            j["clients"] = game.number_of_players();
             if (game.get_status() == STATUS_INITIALIZING){
                 j["status"] = STATUS_INITIALIZING;
             } else if (game.get_status() == STATUS_PLAYING){
                 j["map"] = game.get_map();
-                j["status"] = game.get_status();
+                j["status"] = STATUS_PLAYING;
                 j["turn"] = game.get_turn();
             } else{
                 j["winner"] = game.get_winner();
+                j["status"] = STATUS_FINISHED;
             };
             res.set_content(j.dump(), "application/json");
         }

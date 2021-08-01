@@ -28,6 +28,10 @@ Pawn::Pawn() {
     id = -1;
 }
 
+Pawn::Pawn(int id) {
+    id = id;
+}
+
 Pawn::~Pawn() {
     static_id--;
     board->remove_pos(this);
@@ -60,3 +64,4 @@ bool Pawn::is_game_finished() {
         return true;
     return false;
 }
+
