@@ -21,22 +21,6 @@ Game::~Game() {
     }
 }
 
-void Game::run_create_wall(int player_id, int x, int y, int dir) {
-    if (player_id!=turn){
-        return 0;
-    }
-    try {
-        create_wall(x, y, dir);
-        ret
-    }
-    catch (position_error& e){
-        cout << e.what() << endl;
-        cout << "try again" << endl;
-        retur 0n;
-    }
-
-}
-
 void Game::run() {
     while (!is_finished()){
         board->print();
@@ -94,7 +78,7 @@ int Game::add_new_player() {
     Pawn* pawn = new Pawn(board);
     pawns.push_back(pawn);
     if (pawns.size() == 4)
-        status = STATUS_PLAYING;
+        start();
     return pawn->get_id();
 }
 
@@ -157,4 +141,17 @@ json Game::get_map() {
 
 int Game::get_status() {
     return status;
+}
+
+void Game::check_finish() {
+    if (is_finished())
+        status = STATUS_FINISHED;
+}
+
+int Game::get_winner() {
+    return winner_id;
+}
+
+void Game::start() {
+    status = STATUS_PLAYING;
 }
